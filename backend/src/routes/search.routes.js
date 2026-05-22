@@ -10,6 +10,6 @@ const limiter = rateLimit({
 
 const router = express.Router()
 
-router.post('/', limiter, getSearchTrials)
+router.get('/', limiter, getSearchTrials)
 
 export default router

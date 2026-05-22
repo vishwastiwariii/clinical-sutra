@@ -1,4 +1,4 @@
-import { pool } from '../config/db.js'
+import pool from '../config/db.js'
 
 export async function searchTrialService({
     query: q, 
@@ -23,7 +23,7 @@ export async function searchTrialService({
             )`
         ); 
 
-        values.push(`%${query}%`); 
+        values.push(`%${q}%`); 
 
         paramCount++
     }
@@ -69,7 +69,9 @@ export async function searchTrialService({
 
       t.phase,
 
-      t.status
+      t.status,
+
+      t.created_at
 
     FROM trials t
 
