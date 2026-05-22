@@ -6,13 +6,15 @@ CREATE TABLE trials (
     phase    TEXT, 
     status   TEXT, 
     study_type VARCHAR(100),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    raw_json JSONB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
 CREATE TABLE conditions (
     id  SERIAL PRIMARY KEY,
-    name TEXT NOT NULL 
+    name TEXT NOT NULL UNIQUE
 );
 
 
@@ -29,7 +31,9 @@ CREATE TABLE interventions (
     id  SERIAL PRIMARY KEY, 
     
     name TEXT NOT NULL, 
-    intervention_type  VARCHAR(100)
+    intervention_type  VARCHAR(100),
+
+    UNIQUE(name, intervention_type)
 );
 
 
@@ -59,9 +63,9 @@ CREATE TABLE locations (
 
     facility_name TEXT, 
 
-    city  VARCHAR(50), 
+    city  VARCHAR(255), 
 
-    country  VARCHAR(50)
+    country  VARCHAR(255)
 );
 
 

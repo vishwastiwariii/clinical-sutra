@@ -1,9 +1,7 @@
-import pkg from 'pg'
-import dotenv from 'dotenv'
+import 'dotenv/config'
+import pg from 'pg'
 
-dotenv.config()
-
-const { Pool } = pkg 
+const { Pool } = pg
 
 const pool = new Pool({
     host: process.env.DB_HOST,
@@ -13,4 +11,5 @@ const pool = new Pool({
     database: process.env.DB_NAME
 })
 
-export default pool 
+export default pool
+ 
