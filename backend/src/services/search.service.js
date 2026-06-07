@@ -15,17 +15,24 @@ export async function searchTrialService({
     let whereClauses = []
 
     //search query 
-    if(q){
-        whereClauses.push(
-            `(
-            t.title ILIKE $${paramCount}
-            OR c.name ILIKE $${paramCount}
-            )`
-        ); 
+    if (q) {
 
-        values.push(`%${q}%`); 
+        whereClauses.push(`
 
-        paramCount++
+            t.search_vector @@ plainto_tsquery(
+
+                'english',
+
+                $${paramCount}
+
+            )
+
+        `);
+
+        values.push(q);
+
+        paramCount++;
+
     }
 
     //phase filter
@@ -59,14 +66,50 @@ export async function searchTrialService({
     
     const searchQuery = `
     SELECT
-      t.id,
-      t.nct_id,
-      t.title,
-      t.phase,
-      t.status,
-      t.summary AS "shortSummary",
-      string_agg(DISTINCT c.name, ', ') AS condition,
-      t.created_at
+
+  t.id,
+
+  t.nct_id,
+
+  t.title,
+
+  t.phase,
+
+  t.status,
+
+  t.summary AS "shortSummary",
+
+  string_agg(
+
+      DISTINCT c.name,
+
+      ', '
+
+  ) AS condition,
+
+  t.created_at,
+
+  ${
+
+      q
+
+        ? `ts_rank(
+
+              t.search_vector,
+
+              plainto_tsquery(
+
+                  'english',
+
+                  $1
+
+              )
+
+          ) AS rank`
+
+        : `0 AS rank`
+
+  }
     FROM trials t
     LEFT JOIN trial_conditions tc
       ON t.id = tc.trial_id
@@ -74,7 +117,11 @@ export async function searchTrialService({
       ON tc.condition_id = c.id
     ${whereSQL}
     GROUP BY t.id
-    ORDER BY t.created_at DESC
+    ${q
+
+  ? "ORDER BY rank DESC, t.created_at DESC"
+
+  : "ORDER BY t.created_at DESC"}
     LIMIT $${paramCount}
     OFFSET $${paramCount + 1}
   `;

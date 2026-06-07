@@ -84,3 +84,45 @@ ON trials(status);
 CREATE INDEX idx_conditions_name
 
 ON conditions(name);
+
+
+
+ALTER TABLE trials
+ADD COLUMN search_vector tsvector; 
+
+
+UPDATE trials 
+SET search_vector = 
+    to_tsvector(
+        'english', 
+        COALESCE(title, '') || '' ||
+        COALESCE(summary, '')
+    ); 
+
+
+CREATE INDEX idx_trials_search_vector
+on trials
+USING GIN(search_vector)
+
+
+CREATE OR REPLACE FUNCTION update_trial_search_vector()
+RETURNS trigger AS $$
+BEGIN
+    NEW.search_vector :=
+        to_tsvector(
+            'english',
+            COALESCE(NEW.title, '') || ' ' ||
+            COALESCE(NEW.summary, '')
+        );
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE TRIGGER trial_search_vector_trigger
+BEFORE INSERT OR UPDATE
+ON trials
+FOR EACH ROW
+EXECUTE FUNCTION update_trial_search_vector();
