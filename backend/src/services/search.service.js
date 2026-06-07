@@ -1,7 +1,7 @@
 import pool from '../config/db.js'
 
 export async function searchTrialService({
-    query: q, 
+    q, 
     page, 
     limit, 
     status, 
@@ -58,39 +58,25 @@ export async function searchTrialService({
 
     
     const searchQuery = `
-
-    SELECT DISTINCT
-
+    SELECT
       t.id,
-
       t.nct_id,
-
       t.title,
-
       t.phase,
-
       t.status,
-
+      t.summary AS "shortSummary",
+      string_agg(DISTINCT c.name, ', ') AS condition,
       t.created_at
-
     FROM trials t
-
     LEFT JOIN trial_conditions tc
-
       ON t.id = tc.trial_id
-
     LEFT JOIN conditions c
-
       ON tc.condition_id = c.id
-
     ${whereSQL}
-
+    GROUP BY t.id
     ORDER BY t.created_at DESC
-
     LIMIT $${paramCount}
-
     OFFSET $${paramCount + 1}
-
   `;
 
   values.push(limit, offset);

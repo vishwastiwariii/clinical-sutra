@@ -11,6 +11,7 @@
   "type": "module",
   "scripts": {
     "dev": "node src/server.js",
-    "ingest": "node src/ingestion/runIngestion.js"
+    "ingest": "node src/ingestion/runIngestion.js",
+    "test": "node --test src/tests/**/*.test.js"
   }
 }
