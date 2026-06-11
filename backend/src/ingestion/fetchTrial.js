@@ -1,11 +1,17 @@
 const BASE_URL = "https://clinicaltrials.gov/api/v2/studies";
 
-export async function fetchTrials(pageToken = null) {
+export async function fetchTrials(pageToken = null, {
+    pageSize = 100,
+    queryTerm = "cancer",
+} = {}) {
     const params = new URLSearchParams({
-        "query.term": "cancer",
-        pageSize: "100",
+        pageSize: String(pageSize),
         format: "json",
     });
+
+    if (queryTerm) {
+        params.append("query.term", queryTerm);
+    }
 
     if (pageToken) {
         params.append("pageToken", pageToken);

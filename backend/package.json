@@ -1,8 +1,10 @@
 {
   "dependencies": {
+    "@qdrant/js-client-rest": "^1.18.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-rate-limit": "^8.5.2",
+    "openai": "^6.42.0",
     "pg": "^8.21.0"
   },
   "devDependencies": {
@@ -12,6 +14,7 @@
   "scripts": {
     "dev": "node src/server.js",
     "ingest": "node src/ingestion/runIngestion.js",
+    "index:trials": "node src/scripts/qdrantTrialStore.js",
     "test": "node --test src/tests/**/*.test.js"
   }
 }
