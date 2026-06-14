@@ -10,7 +10,7 @@ export async function semanticSearchTrial({
 
     const searchResults = await client.search('clinical_trials', {
         vector: queryVector.data[0].embedding,
-        limit: 3, 
+        limit: 5, 
         with_payload: true, 
         score_threshold: 0.2
     })
