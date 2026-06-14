@@ -1,6 +1,5 @@
 import { searchTrialService } from "../services/search.service.js"
 
-
 export const getSearchTrials = async (req, res) => {
     try {
         const {
@@ -22,11 +21,15 @@ export const getSearchTrials = async (req, res) => {
 
         const result = await searchTrialService({q, page: parsedPage, limit: parsedLimit, status, phase})
 
-        return res.json({result})
+        return res.status(200).json({
+            success: true,
+            result
+        })
 
     } catch(error){
         console.error(error)
         return res.status(500).json({
+            success: false,
             message: "Internal Sever Error",
             error: error.message
         })

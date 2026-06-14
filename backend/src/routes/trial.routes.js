@@ -12,7 +12,6 @@ const limiter = rateLimit({
 })
 
 router.get('/', limiter, getAllTrials)
-
 router.get('/:nct_id',limiter, getTrialsById)
 
 export default router

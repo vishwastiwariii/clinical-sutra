@@ -22,14 +22,13 @@ export const getAllTrials = async (req, res) => {
         success: true, 
         data: trials, 
         nextCursor,   ///frontend will store nextCursor and next request me automatically will send this 
-        message: 'Trials fetched successfully'
     })
   } catch (error) {
     console.error('Error in getAllTrials:', error)
     return res.status(500).json({
         success: false,
         error: 'Internal Server Error',
-        message: error.message || 'An error occurred while fetching trials'
+        message: error.message
     })
   }
 

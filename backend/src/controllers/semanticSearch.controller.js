@@ -1,7 +1,5 @@
 import { semanticSearchTrial } from "../services/semanticSearch.service.js"
 
-
-
 export const semanticSearch = async (req, res) => {
     try {
         const { q } = req.query
@@ -14,7 +12,10 @@ export const semanticSearch = async (req, res) => {
 
         const result = await semanticSearchTrial({q})
 
-        return res.json({result})
+        return res.status(200).json({
+            success: true,
+            result
+        })
 
     } catch (error){
         console.error(error)

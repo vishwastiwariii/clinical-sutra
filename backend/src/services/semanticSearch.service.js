@@ -12,7 +12,7 @@ export async function semanticSearchTrial({
         vector: queryVector.data[0].embedding,
         limit: 5, 
         with_payload: true, 
-        score_threshold: 0.2
+        score_threshold: 0.3
     })
 
 

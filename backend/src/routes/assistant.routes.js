@@ -1,6 +1,6 @@
 import express from 'express'
 import { rateLimit } from 'express-rate-limit'
-import { getSearchTrials } from '../controllers/search.controller.js'
+import { ragSearchTrials } from '../controllers/rag.controller.js'
 
 const router = express.Router()
 
@@ -10,6 +10,6 @@ const limiter = rateLimit({
     message: "Too many requests from this IP, please try again after 15 minutes"
 })
 
-router.get('/', limiter, getSearchTrials)
+router.post('/', limiter, ragSearchTrials)
 
 export default router
