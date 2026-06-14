@@ -22,6 +22,9 @@ export async function buildContext(results){
                     Summary: 
                     ${p.searchDocument}
 
+                    NCT_ID:
+                    ${p.nctId}
+
                     `;
                 }).join("\n\n----------------\n\n")
 }
