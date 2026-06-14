@@ -1,0 +1,338 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Clinical Discovery AI - Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "outline": "#74777f",
+                      "tertiary-fixed-dim": "#c1c7cf",
+                      "tertiary": "#1b2127",
+                      "on-tertiary-fixed-variant": "#41474e",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#f1f0f4",
+                      "background": "#faf9fd",
+                      "primary-fixed-dim": "#adc7f7",
+                      "on-surface": "#1a1c1e",
+                      "secondary-fixed-dim": "#89d3d4",
+                      "primary-fixed": "#d6e3ff",
+                      "on-error": "#ffffff",
+                      "on-tertiary-container": "#989fa6",
+                      "surface-container-highest": "#e3e2e6",
+                      "surface-variant": "#e3e2e6",
+                      "on-error-container": "#93000a",
+                      "secondary": "#13696a",
+                      "primary": "#002045",
+                      "on-secondary-fixed": "#002020",
+                      "on-background": "#1a1c1e",
+                      "inverse-surface": "#2f3033",
+                      "surface-container": "#efedf1",
+                      "surface-container-low": "#f4f3f7",
+                      "on-surface-variant": "#43474e",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#2d476f",
+                      "tertiary-fixed": "#dde3eb",
+                      "error": "#ba1a1a",
+                      "on-primary-fixed": "#001b3c",
+                      "on-primary-container": "#86a0cd",
+                      "primary-container": "#1a365d",
+                      "surface-dim": "#dad9dd",
+                      "surface-tint": "#455f88",
+                      "surface-bright": "#faf9fd",
+                      "on-secondary-container": "#1a6d6e",
+                      "secondary-container": "#a2eded",
+                      "secondary-fixed": "#a5eff0",
+                      "on-tertiary-fixed": "#161c22",
+                      "tertiary-container": "#30363c",
+                      "surface-container-high": "#e9e7eb",
+                      "error-container": "#ffdad6",
+                      "surface": "#faf9fd",
+                      "on-secondary-fixed-variant": "#004f50",
+                      "on-secondary": "#ffffff",
+                      "outline-variant": "#c4c6cf",
+                      "inverse-primary": "#adc7f7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "xl": "48px",
+                      "sm": "8px",
+                      "xs": "4px",
+                      "container-max": "1280px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "unit": "4px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "mono-data": ["monospace"],
+                      "headline-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "headline-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "mono-data": ["13px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .clinical-shadow {
+            box-shadow: 0 4px 12px rgba(26, 54, 93, 0.05);
+        }
+        .hero-gradient {
+            background: linear-gradient(180deg, #FFFFFF 0%, #FAF9FD 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-surface-container-lowest border-b border-surface-variant z-50">
+<div class="flex items-center justify-between px-lg max-w-container-max mx-auto h-20">
+<div class="flex items-center gap-md cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-primary text-[32px]">clinical_notes</span>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">Clinical Sutra</h1>
+</div>
+<nav class="hidden md:flex items-center gap-xl">
+<a class="text-secondary font-bold font-body-md text-body-md transition-colors hover:bg-surface-container-low px-sm py-xs rounded" href="#">Home</a>
+<a class="text-on-surface-variant font-body-md text-body-md transition-colors hover:bg-surface-container-low px-sm py-xs rounded" href="#">AI Assistant</a>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-sm rounded-full transition-colors">search</button>
+</nav>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="hero-gradient pt-xl pb-24 px-gutter">
+<div class="max-w-container-max mx-auto text-center">
+<h2 class="font-display-lg text-display-lg text-primary mb-lg">Discover Tomorrow's&nbsp;<div class="">Treatments</div></h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-xl max-w-2xl mx-auto">
+                    Access global clinical trial data with AI-enhanced analysis for oncology, rare diseases, and genetic interventions.
+                </p>
+<!-- Search Bar -->
+<div class="relative max-w-3xl mx-auto">
+<div class="flex items-center bg-surface-container-lowest border border-outline-variant rounded-xl p-unit pl-lg pr-unit focus-within:border-primary focus-within:ring-2 focus-within:ring-secondary/20 transition-all clinical-shadow">
+<span class="material-symbols-outlined text-outline mr-md">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-body-md py-md" placeholder="Search trials by condition, intervention, or gene mutation..." type="text">
+<button class="bg-primary text-on-primary px-xl py-md rounded-lg font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors ml-md">
+                            Analyze
+                        </button>
+</div>
+<div class="mt-md flex gap-sm justify-center flex-wrap">
+<span class="text-label-md text-outline">Trending:</span>
+<span class="text-label-md text-secondary cursor-pointer hover:underline">NSCLC Phase III</span>
+<span class="text-label-md text-secondary cursor-pointer hover:underline">CAR-T Cell Therapy</span>
+<span class="text-label-md text-secondary cursor-pointer hover:underline">BRCA1 Mutations</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Trial Grid Section -->
+<section class="py-xl px-gutter max-w-container-max mx-auto">
+<div class="flex items-center justify-between mb-lg">
+<h3 class="font-headline-md text-headline-md text-primary">Featured Clinical Trials</h3>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs px-md py-sm border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Filter
+                    </button>
+<button class="flex items-center gap-xs px-md py-sm border border-outline-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">sort</span> Sort
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-surface-variant p-lg rounded-lg flex flex-col hover:clinical-shadow transition-all group">
+<div class="flex justify-between items-start mb-md">
+<span class="bg-secondary-container text-on-secondary-container text-label-md px-sm py-xs rounded uppercase tracking-wider">Recruiting</span>
+<span class="font-mono-data text-mono-data text-outline">NCT04512398</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-sm leading-tight group-hover:text-secondary transition-colors">PD-L1 Targeted Therapy in Advanced NSCLC</h4>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">Lung Cancer</span>
+<span class="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">Phase III</span>
+</div>
+<p class="text-body-sm text-on-surface-variant line-clamp-3 mb-xl">
+                        A multicenter, randomized, open-label study to evaluate the efficacy and safety of novel PD-L1 inhibitors compared to standard chemotherapy in treatment-naive patients.
+                    </p>
+<div class="mt-auto pt-md border-t border-surface-variant flex justify-between items-center">
+<span class="text-label-md text-outline">Updated: 2 days ago</span>
+<button class="text-secondary font-label-md text-label-md hover:underline flex items-center gap-xs">
+                            View Details <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-surface-variant p-lg rounded-lg flex flex-col hover:clinical-shadow transition-all group">
+<div class="flex justify-between items-start mb-md">
+<span class="bg-surface-container-highest text-on-surface-variant text-label-md px-sm py-xs rounded uppercase tracking-wider">Active</span>
+<span class="font-mono-data text-mono-data text-outline">NCT05928102</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-sm leading-tight group-hover:text-secondary transition-colors">CRISPR/Cas9 Gene Editing for Sickle Cell Disease</h4>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">Hematology</span>
+<span class="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">Phase II</span>
+</div>
+<p class="text-body-sm text-on-surface-variant line-clamp-3 mb-xl">
+                        Evaluation of the safety and clinical benefit of autologous CD34+ hematopoietic stem and progenitor cells modified by CRISPR/Cas9 at the BCL11A erythroid-specific enhancer.
+                    </p>
+<div class="mt-auto pt-md border-t border-surface-variant flex justify-between items-center">
+<span class="text-label-md text-outline">Updated: 5 days ago</span>
+<button class="text-secondary font-label-md text-label-md hover:underline flex items-center gap-xs">
+                            View Details <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-surface-variant p-lg rounded-lg flex flex-col hover:clinical-shadow transition-all group">
+<div class="flex justify-between items-start mb-md">
+<span class="bg-secondary-container text-on-secondary-container text-label-md px-sm py-xs rounded uppercase tracking-wider">Recruiting</span>
+<span class="font-mono-data text-mono-data text-outline">NCT01294857</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-sm leading-tight group-hover:text-secondary transition-colors">HER2-Low Breast Cancer Adjuvant Study</h4>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">Breast Cancer</span>
+<span class="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">Phase III</span>
+</div>
+<p class="text-body-sm text-on-surface-variant line-clamp-3 mb-xl">
+                        A phase III trial investigating the clinical impact of antibody-drug conjugates in the adjuvant setting for patients with HER2-low expression levels post-surgery.
+                    </p>
+<div class="mt-auto pt-md border-t border-surface-variant flex justify-between items-center">
+<span class="text-label-md text-outline">Updated: Today</span>
+<button class="text-secondary font-label-md text-label-md hover:underline flex items-center gap-xs">
+                            View Details <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest border border-surface-variant p-lg rounded-lg flex flex-col hover:clinical-shadow transition-all group">
+<div class="flex justify-between items-start mb-md">
+<span class="bg-error-container text-on-error-container text-label-md px-sm py-xs rounded uppercase tracking-wider">Enrolling by Invite</span>
+<span class="font-mono-data text-mono-data text-outline">NCT03344551</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-sm leading-tight group-hover:text-secondary transition-colors">GLP-1 Agonist Impact on Chronic Kidney Disease</h4>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">Nephrology</span>
+<span class="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">Phase IV</span>
+</div>
+<p class="text-body-sm text-on-surface-variant line-clamp-3 mb-xl">
+                        Long-term observational study on the cardiovascular and renal outcomes in patients with type 2 diabetes and stage 3 chronic kidney disease.
+                    </p>
+<div class="mt-auto pt-md border-t border-surface-variant flex justify-between items-center">
+<span class="text-label-md text-outline">Updated: 1 week ago</span>
+<button class="text-secondary font-label-md text-label-md hover:underline flex items-center gap-xs">
+                            View Details <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-container-lowest border border-surface-variant p-lg rounded-lg flex flex-col hover:clinical-shadow transition-all group">
+<div class="flex justify-between items-start mb-md">
+<span class="bg-secondary-container text-on-secondary-container text-label-md px-sm py-xs rounded uppercase tracking-wider">Recruiting</span>
+<span class="font-mono-data text-mono-data text-outline">NCT06112233</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-sm leading-tight group-hover:text-secondary transition-colors">mRNA Vaccine for Pancreatic Adenocarcinoma</h4>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">Oncology</span>
+<span class="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">Phase I</span>
+</div>
+<p class="text-body-sm text-on-surface-variant line-clamp-3 mb-xl">
+                        An investigator-initiated trial testing personalized neoantigen mRNA vaccines in combination with anti-PD-L1 therapy in resectable pancreatic cancer.
+                    </p>
+<div class="mt-auto pt-md border-t border-surface-variant flex justify-between items-center">
+<span class="text-label-md text-outline">Updated: 3 days ago</span>
+<button class="text-secondary font-label-md text-label-md hover:underline flex items-center gap-xs">
+                            View Details <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface-container-lowest border border-surface-variant p-lg rounded-lg flex flex-col hover:clinical-shadow transition-all group">
+<div class="flex justify-between items-start mb-md">
+<span class="bg-surface-container-highest text-on-surface-variant text-label-md px-sm py-xs rounded uppercase tracking-wider">Completed</span>
+<span class="font-mono-data text-mono-data text-outline">NCT02244668</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-sm leading-tight group-hover:text-secondary transition-colors">Targeted BTK Inhibitors in Mantle Cell Lymphoma</h4>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">Hematology</span>
+<span class="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">Phase III</span>
+</div>
+<p class="text-body-sm text-on-surface-variant line-clamp-3 mb-xl">
+                        Final analysis of the efficacy and safety profiles of second-generation BTK inhibitors versus conventional chemo-immunotherapy regimens.
+                    </p>
+<div class="mt-auto pt-md border-t border-surface-variant flex justify-between items-center">
+<span class="text-label-md text-outline">Updated: 1 month ago</span>
+<button class="text-secondary font-label-md text-label-md hover:underline flex items-center gap-xs">
+                            View Details <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Interaction Button -->
+<div class="mt-xl text-center">
+<button class="px-xl py-md border-2 border-secondary text-secondary rounded-lg font-headline-md text-body-md hover:bg-secondary/5 active:scale-95 transition-all">
+                    Load More Trials
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto bg-surface-container border-t border-surface-variant">
+<div class="flex flex-col md:flex-row justify-between items-center px-lg py-xl max-w-container-max mx-auto gap-md">
+<div class="flex flex-col gap-xs">
+<div class="font-label-md text-label-md text-secondary uppercase tracking-widest">Clinical Discovery AI</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 Clinical Trial Discovery Assistant. Powered by Med-RAG Engine.</p>
+</div>
+<div class="flex gap-lg">
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors cursor-pointer" href="#">Citations</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors cursor-pointer" href="#">Data Sources</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors cursor-pointer" href="#">Methodology</a>
+<a class="text-on-surface-variant font-body-sm text-body-sm hover:text-primary transition-colors cursor-pointer" href="#">Privacy Policy</a>
+</div>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for the search bar
+        const searchInput = document.querySelector('input[type="text"]');
+        const searchContainer = searchInput.parentElement;
+
+        searchInput.addEventListener('focus', () => {
+            searchContainer.style.transform = 'translateY(-2px)';
+        });
+
+        searchInput.addEventListener('blur', () => {
+            searchContainer.style.transform = 'translateY(0)';
+        });
+    </script>
+
+
+</body></html>

@@ -1,74 +1,100 @@
-import React from 'react'
+import React from 'react';
 
-const DataCard = ({title, condition, phase, status, shortSummary}) => {
-
-    const getStatusStyles = (status) => {
-    const currentStatus = status?.toLowerCase() || '';
-    if (currentStatus.includes('active') || currentStatus.includes('recruiting')) {
-      return 'bg-emerald-50 text-emerald-700 border-emerald-200';
-    }
-    if (currentStatus.includes('completed')) {
-      return 'bg-blue-50 text-blue-700 border-blue-200';
-    }
-    if (currentStatus.includes('suspended') || currentStatus.includes('terminated')) {
-      return 'bg-rose-50 text-rose-700 border-rose-200';
-    }
-      return 'bg-slate-50 text-slate-700 border-slate-200';
+const TrialCard = ({ title, condition, phase, status, shortSummary, nct_id, created_at }) => {
+    
+    const getStatusStyles = (statusStr) => {
+        const s = statusStr?.toUpperCase() || '';
+        if (s.includes('RECRUITING')) {
+            return 'bg-secondary-container text-on-secondary-container';
+        }
+        if (s.includes('ACTIVE') || s.includes('COMPLETED')) {
+            return 'bg-surface-container-highest text-on-surface-variant';
+        }
+        if (s.includes('SUSPENDED') || s.includes('TERMINATED') || s.includes('WITHDRAWN') || s.includes('INVITE')) {
+            return 'bg-error-container text-on-error-container';
+        }
+        return 'bg-surface-container-highest text-on-surface-variant';
     };
 
+    const formatStatusText = (statusStr) => {
+        if (!statusStr) return 'UNKNOWN';
+        return statusStr.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
+    };
+
+    const getRelativeTime = (dateString) => {
+        if (!dateString) return 'Recently';
+        try {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / (1000 * 60));
+            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const diffMonths = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 30));
+
+            if (diffMins < 60) {
+                return diffMins <= 0 ? 'Just now' : `${diffMins}m ago`;
+            } else if (diffHours < 24) {
+                return `${diffHours}h ago`;
+            } else if (diffDays < 30) {
+                return `${diffDays}d ago`;
+            } else {
+                return `${diffMonths}mo ago`;
+            }
+        } catch (e) {
+            return 'Recently';
+        }
+    };
+
+    const conditions = condition ? condition.split(',').map(c => c.trim()).filter(Boolean) : [];
+    const displayTags = [...conditions.slice(0, 2)];
+    if (phase && phase !== 'NA' && phase !== 'N/A') {
+        let formattedPhase = phase;
+        if (phase.toUpperCase().startsWith('PHASE')) {
+            const num = phase.slice(5);
+            const roman = num === '1' ? 'I' : num === '2' ? 'II' : num === '3' ? 'III' : num === '4' ? 'IV' : num;
+            formattedPhase = `Phase ${roman}`;
+        }
+        displayTags.push(formattedPhase);
+    }
 
     return (
-    <div className='w-full max-w-md bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden flex flex-col p-6 text-left'>
-
-        {/* // Top Section // */}
-        <div className='flex flex-wrap gap-2 items-center mb-4'>
-            {/* Phase Badge */}
-            <span className='px-2.5 py-1 text-xs font-semibold bg-indigo-50 text-indigo-700 rounded-md border border-indigo-100 uppercase tracking-wide'>
-                {phase || 'Phase N/A'}
-            </span>
-
-            {/* Status Badge */}
-            <span className={`px-2.5 py-1 text-xs font-medium rounded-md border ${getStatusStyles(status)}`}>
-                {status || 'Unknown Status'}
-            </span>
-        </div>
-
-
-        {/* // Main Section // */}
-        <div className='flex-1'>
-            <h3 className='text-lg font-bold text-slate-900 leading-snug tracking-tight mb-2 hover:text-indigo-600 transition-colors duration-150'> 
-                {title || 'Untitled'}
-            </h3>
-
-            {/* //Condition Field */}
-            <div className='flex items-baseline gap-1.5 mb-4'> 
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Condition:</span>
-                <span className="text-sm font-medium text-slate-700 bg-slate-100 px-2 py-0.5 rounded">
-                    {condition || 'Not specified'}
+        <div className="bg-surface-container-lowest border border-surface-variant p-lg rounded-lg flex flex-col hover:clinical-shadow transition-all duration-200 group text-left h-full">
+            <div className="flex justify-between items-start mb-md">
+                <span className={`text-label-md px-sm py-xs rounded uppercase tracking-wider font-semibold ${getStatusStyles(status)}`}>
+                    {formatStatusText(status)}
+                </span>
+                <span className="font-mono-data text-mono-data text-outline select-all">
+                    {nct_id || 'NCT--------'}
                 </span>
             </div>
 
-            {/* Divider line */}
-            <hr className="border-slate-100 my-3" />
+            <h4 className="font-headline-md text-headline-md text-primary mb-sm leading-tight group-hover:text-secondary transition-colors duration-150 line-clamp-2">
+                {title || 'Untitled Clinical Trial'}
+            </h4>
 
-            {/* Short Summary */}
-            <p className="text-sm text-slate-600 leading-relaxed line-clamp-3">
-            {shortSummary || 'No summary description available for this record.'}
+            <div className="flex flex-wrap gap-xs mb-md">
+                {displayTags.map((tag, idx) => (
+                    <span key={idx} className="bg-surface-container text-on-surface-variant text-label-md px-sm py-xs rounded">
+                        {tag}
+                    </span>
+                ))}
+            </div>
+
+            <p className="text-body-sm text-on-surface-variant line-clamp-3 mb-xl flex-grow">
+                {shortSummary || 'No summary description available for this record.'}
             </p>
 
+            <div className="mt-auto pt-md border-t border-surface-variant flex justify-between items-center">
+                <span className="text-label-md text-outline">
+                    Updated: {getRelativeTime(created_at)}
+                </span>
+                <button className="text-secondary font-label-md text-label-md hover:underline flex items-center gap-xs cursor-pointer">
+                    View Details <span className="material-symbols-outlined text-[16px] transition-transform group-hover:translate-x-1 duration-150">arrow_forward</span>
+                </button>
+            </div>
         </div>
+    );
+};
 
-
-        {/* // Footer Section // */}
-        <div className="mt-5 pt-4 border-t border-slate-100 flex justify-end">
-            <button className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 transition-colors">
-            View Details <span>→</span>
-            </button>
-        </div>    
-
-     </div>
-    )
-}
-
-
-export default DataCard
+export default TrialCard;

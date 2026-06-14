@@ -2,10 +2,11 @@ import apiClient from "./apiClient";
 
 export const searchService = {
 
-    getTrialsBySearch: async(searchQuery = '') => {
+    getTrialsBySearch: async (params = '') => {
+        const queryParams = typeof params === 'string' ? { q: params } : params;
         return await apiClient.get('/search', {
-            params: {q: searchQuery}
-        })
+            params: queryParams
+        });
     },
 
     getAllTrials: async () => {
