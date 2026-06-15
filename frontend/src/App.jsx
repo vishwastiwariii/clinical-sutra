@@ -1,14 +1,19 @@
-import React from 'react'
-import SearchBar from './components/SearchBar'
-import DataCard from './components/TrialCard'
-import Home from './pages/Home'
+import { useState } from 'react';
+import Home from './pages/Home';
+import AIAssistant from './pages/AIAssistant';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('home');
+
   return (
     <>
-     <Home />
+      {currentPage === 'home' ? (
+        <Home onNavigate={setCurrentPage} />
+      ) : (
+        <AIAssistant onNavigate={setCurrentPage} />
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

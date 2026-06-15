@@ -124,6 +124,9 @@
 .clinical-shadow {
     box-shadow: 0 4px 12px rgba(26, 54, 93, 0.05);
 }
+.ai-glow {
+    box-shadow: 0 0 20px rgba(19, 105, 106, 0.08);
+}
 .hero-gradient {
     background: linear-gradient(180deg, #FFFFFF 0%, #FAF9FD 100%);
 }

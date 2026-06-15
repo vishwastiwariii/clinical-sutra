@@ -3,7 +3,7 @@ import SearchBar from '../components/SearchBar.jsx';
 import TrialCard from '../components/TrialCard.jsx';
 import { searchService } from '../services/searchService.js';
 
-const Home = () => {
+const Home = ({ onNavigate }) => {
   const [studies, setStudies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -122,7 +122,7 @@ const Home = () => {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-xl">
             <a className="text-secondary font-bold font-body-md text-body-md transition-colors hover:bg-surface-container-low px-sm py-xs rounded" href="#home" onClick={(e) => { e.preventDefault(); handleResetAll(); }}>Home</a>
-            <a className="text-on-surface-variant font-body-md text-body-md transition-colors hover:bg-surface-container-low px-sm py-xs rounded" href="#ai" onClick={(e) => e.preventDefault()}>AI Assistant</a>
+            <a className="text-on-surface-variant font-body-md text-body-md transition-colors hover:bg-surface-container-low px-sm py-xs rounded" href="#ai" onClick={(e) => { e.preventDefault(); onNavigate('ai'); }}>AI Assistant</a>
             <button className="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low p-sm rounded-full transition-colors cursor-pointer">search</button>
           </nav>
 
@@ -157,6 +157,7 @@ const Home = () => {
               onClick={(e) => {
                 e.preventDefault();
                 setIsMobileMenuOpen(false);
+                onNavigate('ai');
               }}
             >
               AI Assistant
