@@ -16,7 +16,14 @@ export async function getAllTrial(limit, cursor) {
 
 export async function getTrialById({nct_id}) {
     const result = await pool.query(
-        'SELECT * FROM trials WHERE nct_id = $1',
+        `SELECT t.id, t.nct_id, t.title, t.phase, t.status, t.summary AS "shortSummary",
+                string_agg(DISTINCT c.name, ', ') AS condition,
+                t.created_at
+         FROM trials t
+         LEFT JOIN trial_conditions tc ON t.id = tc.trial_id
+         LEFT JOIN conditions c ON tc.condition_id = c.id
+         WHERE t.nct_id = $1
+         GROUP BY t.id`,
         [nct_id]
     )
 
