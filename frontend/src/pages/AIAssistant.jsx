@@ -62,15 +62,12 @@ const AIAssistant = ({ onNavigate }) => {
       if (data && data.success) {
         setInsight(data.answer);
         
-        // Calculate dynamic confidence score from search scores or default to a reasonable value
         const rawSources = data.source || [];
         const maxScore = rawSources.length > 0 ? Math.max(...rawSources.map(s => s.score || 0)) : 0;
-        
-        // If we get semantic match scores (often 0.0 to 1.0), scale them. Otherwise fallback.
-        const calculatedConfidence = maxScore > 0 
+        const calculatedConfidence = maxScore > 0
           ? Math.min(100, parseFloat((maxScore * 100).toFixed(1)))
-          : parseFloat((90 + Math.random() * 8).toFixed(1)); // Random 90%-98% fallback if no score
-        
+          : 0;
+
         setConfidence(calculatedConfidence);
 
         // Fetch details for each source trial in parallel to render full TrialCards
