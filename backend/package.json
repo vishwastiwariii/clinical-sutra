@@ -13,6 +13,7 @@
   "type": "module",
   "scripts": {
     "dev": "node src/server.js",
+    "db:migrate": "node src/scripts/migrateDatabase.js",
     "ingest": "node src/ingestion/runIngestion.js",
     "index:trials": "node src/scripts/qdrantTrialStore.js",
     "test": "node --test src/tests/**/*.test.js"

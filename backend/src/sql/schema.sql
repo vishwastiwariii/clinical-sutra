@@ -1,4 +1,4 @@
-CREATE TABLE trials (
+CREATE TABLE IF NOT EXISTS trials (
     id    SERIAL PRIMARY KEY, 
     nct_id VARCHAR(50) UNIQUE NOT NULL, 
     title   TEXT NOT NULL, 
@@ -12,13 +12,13 @@ CREATE TABLE trials (
 );
 
 
-CREATE TABLE conditions (
+CREATE TABLE IF NOT EXISTS conditions (
     id  SERIAL PRIMARY KEY,
     name TEXT NOT NULL UNIQUE
 );
 
 
-CREATE TABLE trial_conditions (
+CREATE TABLE IF NOT EXISTS trial_conditions (
     trial_id INT REFERENCES trials(id) on DELETE CASCADE, 
 
     condition_id  INT REFERENCES  conditions(id) on DELETE CASCADE, 
@@ -27,7 +27,7 @@ CREATE TABLE trial_conditions (
 );
 
 
-CREATE TABLE interventions (
+CREATE TABLE IF NOT EXISTS interventions (
     id  SERIAL PRIMARY KEY, 
     
     name TEXT NOT NULL, 
@@ -37,7 +37,7 @@ CREATE TABLE interventions (
 );
 
 
-CREATE TABLE trial_interventions (
+CREATE TABLE IF NOT EXISTS trial_interventions (
     trial_id INT REFERENCES trials(id) on DELETE CASCADE, 
 
     intervention_id INT REFERENCES interventions(id) on DELETE CASCADE, 
@@ -46,7 +46,7 @@ CREATE TABLE trial_interventions (
 );
 
 
-CREATE TABLE eligibility (
+CREATE TABLE IF NOT EXISTS eligibility (
     id  SERIAL PRIMARY KEY,
     trial_id INT UNIQUE REFERENCES trials(id) on DELETE CASCADE, 
     criteria TEXT,
@@ -56,7 +56,7 @@ CREATE TABLE eligibility (
 );
 
 
-CREATE TABLE locations (
+CREATE TABLE IF NOT EXISTS locations (
     id SERIAL PRIMARY KEY, 
 
     trial_id INT REFERENCES trials(id) on DELETE CASCADE, 
@@ -69,40 +69,41 @@ CREATE TABLE locations (
 );
 
 
-CREATE INDEX idx_trials_nct_id
+CREATE INDEX IF NOT EXISTS idx_trials_nct_id
 
 ON trials(nct_id);
 
-CREATE INDEX idx_trials_phase
+CREATE INDEX IF NOT EXISTS idx_trials_phase
 
 ON trials(phase);
 
-CREATE INDEX idx_trials_status
+CREATE INDEX IF NOT EXISTS idx_trials_status
 
 ON trials(status);
 
-CREATE INDEX idx_conditions_name
+CREATE INDEX IF NOT EXISTS idx_conditions_name
 
 ON conditions(name);
 
 
 
 ALTER TABLE trials
-ADD COLUMN search_vector tsvector; 
+ADD COLUMN IF NOT EXISTS search_vector tsvector; 
 
 
-UPDATE trials 
-SET search_vector = 
+UPDATE trials
+SET search_vector =
     to_tsvector(
-        'english', 
-        COALESCE(title, '') || '' ||
+        'english',
+        COALESCE(title, '') || ' ' ||
         COALESCE(summary, '')
-    ); 
+    )
+WHERE search_vector IS NULL;
 
 
-CREATE INDEX idx_trials_search_vector
+CREATE INDEX IF NOT EXISTS idx_trials_search_vector
 on trials
-USING GIN(search_vector)
+USING GIN(search_vector);
 
 
 CREATE OR REPLACE FUNCTION update_trial_search_vector()
@@ -120,6 +121,8 @@ END;
 $$ LANGUAGE plpgsql;
 
 
+
+DROP TRIGGER IF EXISTS trial_search_vector_trigger ON trials;
 
 CREATE TRIGGER trial_search_vector_trigger
 BEFORE INSERT OR UPDATE

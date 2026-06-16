@@ -1,6 +1,7 @@
 import { fetchTrials } from "./fetchTrial.js";
 import { normalizeTrial } from "./normalizeTrial.js";
 import { saveTrial } from "./saveTrial.js";
+import pool from "../config/db.js";
 
 async function runIngestion() {
   let nextPageToken = null;
@@ -34,6 +35,7 @@ async function runIngestion() {
   } while (nextPageToken);
 
   console.log(`Done. Total saved: ${total}`);
+  await pool.end();
   process.exit(0);
 }
 

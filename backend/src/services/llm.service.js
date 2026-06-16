@@ -1,8 +1,4 @@
-import OpenAI from "openai";
-import { buildContext } from "./context.service.js";
-
-
-const client = new OpenAI()
+import client from "../config/openai.js"
 
 
 export async function generateAnswer(question, context){

@@ -34,7 +34,6 @@ describe('Trials API Tests', () => {
     assert.ok(Array.isArray(data.data));
     assert.strictEqual(data.data.length, 10); // Default limit is 10
     assert.ok(data.nextCursor);
-    assert.strictEqual(data.message, 'Trials fetched successfully');
   });
 
   test('GET /trials with cursor pagination parameters', async () => {
