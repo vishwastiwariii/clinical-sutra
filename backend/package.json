@@ -12,6 +12,7 @@
   },
   "type": "module",
   "scripts": {
+    "start": "node src/server.js",
     "dev": "node src/server.js",
     "db:migrate": "node src/scripts/migrateDatabase.js",
     "ingest": "node src/ingestion/runIngestion.js",

@@ -217,7 +217,7 @@ export async function fetchPostgresTrialBatch({
     LEFT JOIN interventions i
       ON ti.intervention_id = i.id
     WHERE t.id > $1
-    GROUP BY t.id
+    GROUP BY t.id, t.nct_id, t.title, t.summary, t.phase, t.status, t.study_type
     ORDER BY t.id
     LIMIT $2
     `,

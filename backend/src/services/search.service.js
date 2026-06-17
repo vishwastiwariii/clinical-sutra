@@ -116,7 +116,7 @@ export async function searchTrialService({
     LEFT JOIN conditions c
       ON tc.condition_id = c.id
     ${whereSQL}
-    GROUP BY t.id
+    GROUP BY t.id, t.nct_id, t.title, t.phase, t.status, t.summary, t.created_at, t.search_vector
     ${q
 
   ? "ORDER BY rank DESC, t.created_at DESC"

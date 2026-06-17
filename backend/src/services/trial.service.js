@@ -23,7 +23,7 @@ export async function getTrialById({nct_id}) {
          LEFT JOIN trial_conditions tc ON t.id = tc.trial_id
          LEFT JOIN conditions c ON tc.condition_id = c.id
          WHERE t.nct_id = $1
-         GROUP BY t.id`,
+         GROUP BY t.id, t.nct_id, t.title, t.phase, t.status, t.summary, t.created_at`,
         [nct_id]
     )
 

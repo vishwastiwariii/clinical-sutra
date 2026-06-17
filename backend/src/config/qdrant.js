@@ -1,10 +1,18 @@
-import 'dotenv/config'
+import dotenv from 'dotenv'
 import { QdrantClient } from "@qdrant/js-client-rest"
 
+dotenv.config()
+
 const client = new QdrantClient({
-  host: process.env.QDRANT_HOST || "localhost",
-  port: parseInt(process.env.QDRANT_PORT) || 6333,
-  checkCompatibility: false,
+  url: process.env.QDRANT_HOST || "localhost:6333",
+  apiKey: process.env.QDRANT_API_KEY,
 })
+
+try {
+    const result = await client.getCollections();
+    console.log('List of collections:', result.collections);
+} catch (err) {
+    console.error('Could not get collections:', err);
+}
 
 export default client
