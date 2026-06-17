@@ -4,7 +4,7 @@ import app from './app.js'
 
 const PORT = process.env.PORT || 3000
 
-app.get('/status', async (req, res) => {
+app.get('/health', async (req, res) => {
     res.json({
         status: 'ok'
     })
