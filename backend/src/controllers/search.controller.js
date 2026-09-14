@@ -1,4 +1,4 @@
-import { searchTrialService } from "../services/search.service.js"
+import { keywordSearch } from "../services/keyword/keywordSearch.service.js"
 
 export const getSearchTrials = async (req, res) => {
     try {
@@ -19,7 +19,7 @@ export const getSearchTrials = async (req, res) => {
             })
         }
 
-        const result = await searchTrialService({q, page: parsedPage, limit: parsedLimit, status, phase})
+        const result = await keywordSearch({q, page: parsedPage, limit: parsedLimit, status, phase})
 
         return res.status(200).json({
             success: true,

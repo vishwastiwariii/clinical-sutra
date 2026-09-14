@@ -2,7 +2,7 @@ import { test, describe, before, after } from 'node:test';
 import assert from 'node:assert';
 import app from '../app.js';
 import pool from '../config/db.js';
-import { searchTrialService } from '../services/search.service.js';
+import { keywordSearch } from '../services/keyword/keywordSearch.service.js';
 
 describe('Search Service & API Tests', () => {
   let server;
@@ -26,9 +26,9 @@ describe('Search Service & API Tests', () => {
     await pool.end();
   });
 
-  test('searchTrialService destructuring behavior', async () => {
-    // Verify how searchTrialService behaves when passing q
-    const resWithQ = await searchTrialService({ q: 'cancer', page: 1, limit: 5 });
+  test('keywordSearch destructuring behavior', async () => {
+    // Verify how keywordSearch behaves when passing q
+    const resWithQ = await keywordSearch({ q: 'cancer', page: 1, limit: 5 });
 
     console.log(`Total count when passing q: ${resWithQ.total}`);
     

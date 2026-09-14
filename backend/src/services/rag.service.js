@@ -1,6 +1,6 @@
 import { buildContext } from "./context.service.js";
 import { generateAnswer } from "./llm.service.js";
-import { semanticSearchTrial } from "./semanticSearch.service.js";
+import { semanticSearchTrial } from "./semantic/semanticSearch.service.js";
 
 
 

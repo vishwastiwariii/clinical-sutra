@@ -81,6 +81,10 @@ CREATE INDEX IF NOT EXISTS idx_trials_status
 
 ON trials(status);
 
+CREATE INDEX IF NOT EXISTS idx_trials_created_at
+
+ON trials(created_at DESC);
+
 CREATE INDEX IF NOT EXISTS idx_conditions_name
 
 ON conditions(name);

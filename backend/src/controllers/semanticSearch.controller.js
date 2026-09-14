@@ -1,4 +1,4 @@
-import { semanticSearchTrial } from "../services/semanticSearch.service.js"
+import { semanticSearchTrial } from "../services/semantic/semanticSearch.service.js"
 
 export const semanticSearch = async (req, res) => {
     try {

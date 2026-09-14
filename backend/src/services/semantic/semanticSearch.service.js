@@ -1,5 +1,5 @@
-import client from "../config/qdrant.js"
-import createEmbeddings from "./embeddings.service.js"
+import client from "../../config/qdrant.js"
+import createEmbeddings from "../embeddings.service.js"
 
 
 export async function semanticSearchTrial({
