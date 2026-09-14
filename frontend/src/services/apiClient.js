@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/',
-  timeout: 20000,
+  // The hosted Postgres can take ~15s to wake from idle; leave headroom.
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',

@@ -46,6 +46,7 @@ export const STATUS_OPTIONS = [
 ].map((value) => ({ value, label: STATUS_LABELS[value] }));
 
 export const PHASE_OPTIONS = [
+  { value: 'EARLY_PHASE1', label: 'Early Phase 1' },
   { value: 'PHASE1', label: 'Phase 1' },
   { value: 'PHASE2', label: 'Phase 2' },
   { value: 'PHASE3', label: 'Phase 3' },
@@ -70,11 +71,13 @@ export function formatPhase(phase) {
   const parts = String(phase)
     .toUpperCase()
     .split(/[|,/\s]+/)
-    .map((p) => p.replace(/^PHASE_?/, '').trim())
+    .map((p) => p.replace(/^EARLY_?PHASE_?/, 'EARLY ').replace(/^PHASE_?/, '').trim())
     .filter(Boolean);
   if (!parts.length) return 'N/A';
   if (parts.every((p) => p === 'NA' || p === 'N/A')) return 'N/A';
-  return parts.map((p) => (p === 'NA' ? 'N/A' : p)).join('/');
+  return parts
+    .map((p) => (p === 'NA' ? 'N/A' : p.startsWith('EARLY ') ? `Early ${p.slice(6)}` : p))
+    .join('/');
 }
 
 export function formatDate(value) {
@@ -97,13 +100,15 @@ export function titleCase(value) {
  */
 export function normalizeTrial(raw) {
   if (!raw) return null;
-  const conditions = (raw.condition || raw.conditions || '')
-    .split(',')
-    .map((c) => c.trim())
+  // /search rows carry `conditions` as an array; /trials/:id still returns a
+  // `condition` comma-string. Accept either.
+  const rawConditions = raw.conditions ?? raw.condition ?? [];
+  const conditions = (Array.isArray(rawConditions) ? rawConditions : rawConditions.split(','))
+    .map((c) => String(c).trim())
     .filter(Boolean);
 
   return {
-    id: raw.id,
+    id: raw.id ?? raw.trialId,
     nctId: raw.nct_id || raw.nctId || '—',
     title: raw.title || 'Untitled study',
     summary: raw.shortSummary || raw.summary || '',
